@@ -1,12 +1,12 @@
 import pandas as pd
 
-questions = pd.read_csv('questions.csv')
+questions = pd.read_csv('./data/questions.csv')
 # filter out the questions that are not answered by TakenByAttorneyUno since they are not useful
 
 # set the index to QuestionUno
 questions.set_index('QuestionUno', inplace=True)
 
-question_posts = pd.read_csv('questionposts.csv')
+question_posts = pd.read_csv('./data/questionposts.csv')
 # keep the first 5 columns
 question_posts = question_posts.iloc[:, :5]
 question_posts = question_posts[question_posts['PostText'].notna()]

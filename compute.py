@@ -1,10 +1,10 @@
 import pandas as pd
 
-questions = pd.read_csv('questions.csv')
+questions = pd.read_csv('./data/questions.csv')
 # filter out the questions that are not answered by TakenByAttorneyUno since they are not useful
 questions = questions[questions['TakenByAttorneyUno'] is not None]
 
-question_posts = pd.read_csv('question_posts_short.csv')
+question_posts = pd.read_csv('./data/question_posts_short.csv')
 # keep the first 5 columns
 question_posts = question_posts.iloc[:, :5]
 
