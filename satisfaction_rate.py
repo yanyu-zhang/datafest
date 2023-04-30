@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 questions = pd.read_csv('./data/questions.csv')
@@ -13,7 +14,7 @@ question_posts = question_posts[question_posts['PostText'].notna()]
 
 merged_data = pd.merge(questions, question_posts, on='QuestionUno', how='inner')
 
-key_words = ['thank']
+key_words = ['thank', 'appreciate', 'help', 'assist', 'grateful', 'gratitude']
 
 # append two columns to the question dataframe
 # one column is the number of key word appearing, the second column is the number of words in the question
@@ -28,9 +29,20 @@ for question_uno, group in merged_data.groupby('QuestionUno'):
         for key_word in key_words:
             if key_word in post_text:
                 key_word_count += 1
+
         word_count += len(post_text.split())
+
     questions.loc[question_uno, 'KeyWordCount'] = key_word_count
     questions.loc[question_uno, 'WordCount'] = word_count
 
 # print rows with key word count > 0
 print(questions[questions['KeyWordCount'] > 0])
+
+# compute satisfaction rate
+new_df = questions[['KeyWordCount', 'WordCount']]
+new_df['SatisfactionRate'] = questions['KeyWordCount']
+
+new_df['SubcategoryUno'] = questions['SubcategoryUno']
+
+# store csv
+new_df.to_csv('./data/satisfaction_rate.csv')

@@ -21,7 +21,7 @@ first_posts = merged_data.groupby('QuestionUno').first().sort_values(by='Created
 # create a new df with the question text and question uno
 question_text = first_posts['PostText']
 # append SubcategoryUno column to the dataframe
-question_text = pd.merge(question_text, questions[['QuestionUno', 'SubcategoryUno']], on='QuestionUno', how='left')
+question_text = pd.merge(question_text, questions[['QuestionUno', 'SubcategoryUno', 'AskedOnUtc']], on='QuestionUno', how='left')
 # drop the duplicates
 question_text = question_text.drop_duplicates(subset=['QuestionUno'])
 # set the index to QuestionUno
